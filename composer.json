@@ -1,0 +1,38 @@
+{
+    "name": "laravel-enso/vueadminlte",
+    "description": "Admin LTE Vuefied",
+    "keywords": [
+        "laravel-enso",
+        "admin-lte",
+        "adminlte",
+        "vue-admin-lte"
+    ],
+    "homepage": "https://github.com/laravel-enso/VueAdminLTE",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adrian Ocneanu",
+            "email": "aocneanu@gmail.com",
+            "homepage": "https://laravel-enso.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "laravel/framework": "5.4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaravelEnso\\VueAdminLTE\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaravelEnso\\VueAdminLTE\\VueAdminLteServiceProvider"
+            ],
+            "aliases": {}
+        }
+    }
+}
