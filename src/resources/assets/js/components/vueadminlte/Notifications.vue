@@ -1,7 +1,10 @@
 <template>
 
-	<li id="notifications" class="dropdown notifications-menu">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+	<li id="notifications"
+		class="dropdown notifications-menu">
+		<a href="#"
+			class="dropdown-toggle"
+			data-toggle="dropdown"
 			@click="getList()">
 			<i class="fa fa-bell-o"></i>
 			<span class="label label-danger"
@@ -9,7 +12,8 @@
 				v-text="unreadCount">
 			</span>
 		</a>
-		<ul class="dropdown-menu" v-cloak>
+		<ul class="dropdown-menu"
+			v-cloak>
 			<li class="header">
 				<span v-if="unreadCount">
 					{{ labels.youHave }}
@@ -24,14 +28,18 @@
 				<span v-else>
 					{{ labels.noNotifications }}
 				</span>
-				<span class="pull-right" v-if="loading">
+				<span class="pull-right"
+					v-if="loading">
 					<i class="fa fa-spinner fa-spin text-orange"></i>
 				</span>
 			</li>
 			<li>
-				<ul class="menu" id="notifications-body" @scroll="computeScrollPosition($event)">
+				<ul id="notifications-body"
+					class="menu"
+					@scroll="computeScrollPosition($event)">
 					<li v-for="notification in notifications">
-						<a href="#" @click.up="process(notification)">
+						<a href="#"
+							@click.up="process(notification)">
 							<i class="fa fa-envelope-open-o text-green"
 								v-if="notification.read_at">
 							</i>
@@ -45,13 +53,16 @@
 					</li>
 				</ul>
 			</li>
-			<li class="footer" v-if="unreadCount || notifications.length">
+			<li class="footer"
+				v-if="unreadCount || notifications.length">
 				<a href="#">
-					<a href="#" class="pull-left"
+					<a href="#"
+						class="pull-left"
 						@click="markAllAsRead()">
 						{{ labels.markAllAsRead }}
 					</a>
-				  	<a href="#" class="pull-right"
+				  	<a href="#"
+				  		class="pull-right"
 				  		@click="clearAll()">
 				  		{{ labels.clearAll }}
 				  	</a>

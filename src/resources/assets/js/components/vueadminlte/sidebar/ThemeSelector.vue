@@ -2,8 +2,11 @@
 
   	<label class="control-sidebar-subheading">
   		{{ store.labels.theme }}
-    	<li class="dropdown pull-right" style="list-style-type: none;">
-      		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+    	<li class="dropdown pull-right"
+    		style="list-style-type: none;">
+      		<a href="#"
+      			class="dropdown-toggle"
+      			data-toggle="dropdown">
         		{{ store.user.preferences.global.theme }}
       		</a>
       		<ul class="dropdown-menu color-theme-selector">
@@ -21,7 +24,6 @@
 <script>
 
 	export default {
-
 		data() {
 			return {
 				store: Store
@@ -34,8 +36,8 @@
 				this.store.user.preferences.global.theme = theme;
 				this.$emit('changed');
 		    }
-		   }
-	 }
+	   	}
+	}
 
 </script>
 

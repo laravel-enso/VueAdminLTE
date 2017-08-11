@@ -1,7 +1,8 @@
 <template>
 
 	<li class="dropdown user user-menu">
-        <a href="#" class="dropdown-toggle"
+        <a href="#"
+        	class="dropdown-toggle"
             data-toggle="dropdown">
             <img :src="'/core/avatars/' + store.user.avatarId"
                 class="user-image user-avatar"
@@ -34,8 +35,12 @@
                       @click="logout()">
                       {{ store.labels.logout }}
                     </a>
-                    <form id="logout-form" action="/logout" method="POST">
-	                    <input name="_token" type="hidden" :value="csrfToken">
+                    <form id="logout-form"
+                    	action="/logout"
+                    	method="POST">
+	                    <input name="_token"
+	                    	type="hidden"
+	                    	:value="csrfToken">
 				    </form>
                 </div>
             </li>

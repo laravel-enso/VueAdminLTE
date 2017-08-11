@@ -47,6 +47,7 @@
 		</theme-selector>
 
   		<hr>
+
 	</div>
 
 </template>

@@ -10,7 +10,9 @@
 				<span class="info-box-text">{{ text }}</span>
 				<span class="info-box-number">{{ number }}</span>
 				<div class="progress">
-	                <div class="progress-bar" :style="{'width': progress + '%'}"></div>
+	                <div class="progress-bar"
+                        :style="{'width': progress + '%'}">
+                    </div>
 				</div>
 				<span class="progress-description">
                     {{ description }}
@@ -59,7 +61,3 @@
 	};
 
 </script>
-
-<style>
-
-</style>

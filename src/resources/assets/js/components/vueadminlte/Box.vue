@@ -1,30 +1,31 @@
 <template>
 
-	<div class="box" :class="boxClass">
+    <div class="box"
+        :class="boxClass">
         <div class="box-header"
-        	:class="headerClass">
+            :class="headerClass">
             <i :class="icon"
-            	v-if="icon">
-        	</i>
+                v-if="icon">
+            </i>
             <h3 class="box-title"
-            	v-if="title">
+                v-if="title">
                 {{ title }}
             </h3>
             <div class="box-tools pull-right">
-	            <span v-if="search">
-	                <i class="fa fa-search"></i>
-	                <input type="text"
-	                    size="15"
-	                    class="search margin-right-xs"
-	                    v-model="query"
-	                    @input="$emit('query-update', query)">
-	            </span>
-	            <slot name="btn-box-tool"></slot>
-	            <span class="badge bg-orange"
-	            	v-if="badge !== null">
+                <span v-if="search">
+                    <i class="fa fa-search"></i>
+                    <input type="text"
+                        size="15"
+                        class="search margin-right-xs"
+                        v-model="query"
+                        @input="$emit('query-update', query)">
+                </span>
+                <slot name="btn-box-tool"></slot>
+                <span class="badge bg-orange"
+                    v-if="badge !== null">
                     {{ badge }}
                 </span>
-	            <button class="btn btn-box-tool btn-sm"
+                <button class="btn btn-box-tool btn-sm"
                     v-if="refresh"
                     @click="$emit('refresh')">
                     <i class="fa fa-refresh"></i>
@@ -44,15 +45,15 @@
             </div>
         </div>
         <div class="box-body"
-            :style="{'max-height': maxHeight, 'overflow-y': 'auto'}">
-        	<slot></slot>
+            :style="bodyStyle">
+            <slot></slot>
         </div>
         <div class="box-footer"
-        	v-if="footer">
-        	<slot name="footer"></slot>
+            v-if="footer">
+            <slot name="footer"></slot>
         </div>
         <div class="overlay"
-        	v-if="overlay">
+            v-if="overlay">
             <i class="fa fa-spinner fa-spin spinner-custom"></i>
         </div>
     </div>
@@ -61,82 +62,84 @@
 
 <script>
 
-	export default {
-		props: {
-			theme: {
+    export default {
+        props: {
+            theme: {
                 type: String,
             },
             border: {
-            	type: Boolean,
-            	default: false
+                type: Boolean,
+                default: false
             },
             solid: {
-            	type: Boolean,
-            	default: false
+                type: Boolean,
+                default: false
             },
             open: {
                 type: Boolean,
                 default: false
             },
             footer: {
-            	type: Boolean,
-            	default: false
+                type: Boolean,
+                default: false
             },
             icon: {
-            	type: String,
-            	default: null
+                type: String,
+                default: null
             },
             title: {
-            	type: String,
-            	default: null
+                type: String,
+                default: null
             },
             search: {
-            	type: Boolean,
-            	default: false
+                type: Boolean,
+                default: false
             },
             badge: {
-            	type: Number,
-            	default: null
+                type: Number,
+                default: null
             },
             refresh: {
-            	type: Boolean,
-            	default: false
+                type: Boolean,
+                default: false
             },
             collapsible: {
-            	type: Boolean,
-            	default: false
+                type: Boolean,
+                default: false
             },
             removable: {
-            	type: Boolean,
-            	default: false
+                type: Boolean,
+                default: false
             },
             overlay: {
-            	type: Boolean,
-            	default: false
+                type: Boolean,
+                default: false
             },
-            maxHeight: {
-                type: String,
-                default: ''
+            bodyStyle: {
+                type: Object,
+                default() {
+                    return {}
+                }
             }
-		},
+        },
 
-		computed: {
-			boxClass() {
-				return 'box-' + this.theme
-					+ (this.solid ? ' box-solid' : '')
-					+ (this.open ? '': ' collapsed-box');
-			},
-			headerClass() {
-				return this.border ? 'with-border' : '';
-			}
-		},
+        computed: {
+            boxClass() {
+                return 'box-' + this.theme
+                    + (this.solid ? ' box-solid' : '')
+                    + (this.open ? '': ' collapsed-box');
+            },
+            headerClass() {
+                return this.border ? 'with-border' : '';
+            },
+        },
 
-		data() {
-			return {
-				query: null
+        data() {
+            return {
+                query: null
             };
-		}
-	};
+        }
+    };
 
 </script>
 

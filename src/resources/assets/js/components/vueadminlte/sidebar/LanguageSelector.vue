@@ -2,8 +2,11 @@
 
 	<label class="control-sidebar-subheading">
 		{{ store.labels.language }}
-		<li class="dropdown pull-right" style="list-style-type: none;">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		<li class="dropdown pull-right"
+			style="list-style-type: none;">
+			<a href="#"
+				class="dropdown-toggle"
+				data-toggle="dropdown">
 	            <i :class="language.flag"></i>
             </a>
             <ul class="dropdown-menu language-selector">

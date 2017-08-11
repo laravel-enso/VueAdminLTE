@@ -14,11 +14,15 @@
 		</div>
 		<div class="box-footer">
 			<div class="row">
-				<div :class="'col-sm-' + 12/items.length"
+				<div :class="computedClass"
 					v-for="item in items">
 					<div class="description-block">
-						<h5 class="description-header">{{ item.value }}</h5>
-						<span class="description-text">{{ item.label }}</span>
+						<h5 class="description-header">
+							{{ item.value }}
+						</h5>
+						<span class="description-text">
+							{{ item.label }}
+						</span>
 					</div>
 				</div>
 			</div>
@@ -61,6 +65,12 @@
             	type: Boolean,
             	default: false
             }
+		},
+
+		computed: {
+			computedClass() {
+				return 'col-sm-' + 12/this.items.length
+			}
 		},
 
 		data() {
