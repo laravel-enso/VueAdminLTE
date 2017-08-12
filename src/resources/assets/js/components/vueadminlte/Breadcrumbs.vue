@@ -3,7 +3,7 @@
 	<ol class="breadcrumb">
         <li v-for="breadcrumb in breadcrumbs">
             <a :class="getClass(breadcrumb)"
-            	:href="breadcrumb.link || null">
+            	:href="getLink(breadcrumb)">
                 {{ breadcrumb.label }}
             </a>
         </li>
@@ -23,6 +23,9 @@
 		methods: {
 			getClass(breadcrumb) {
 				return breadcrumb.link ? null : 'greyed';
+			},
+			getLink(breadcrumb) {
+				return breadcrumb.link ? '/' + breadcrumb.link : null
 			}
 		}
 	};
