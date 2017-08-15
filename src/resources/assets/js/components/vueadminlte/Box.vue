@@ -1,7 +1,8 @@
 <template>
 
     <div class="box"
-        :class="boxClass">
+        :class="boxClass"
+        :id="'box-' + _uid">
         <div class="box-header"
             :class="headerClass">
             <i :class="icon"
@@ -31,10 +32,15 @@
                     <i class="fa fa-refresh"></i>
                 </button>
                 <button class="btn btn-box-tool btn-sm"
-                    data-widget="collapse"
                     v-if="collapsible"
-                    @click="$emit('toggle-collapse')">
-                    <i :class="['fa', open ? 'fa-minus' : 'fa-plus']"></i>
+                    data-widget="collapse"
+                    @click="$emit('toggle');toggle()">
+                    <i class="fa fa-minus"
+                        v-if="!collapsed">
+                    </i>
+                    <i class="fa fa-plus"
+                        v-if="collapsed">
+                    </i>
                 </button>
                 <button class="btn btn-box-tool btn-sm"
                     data-widget="remove"
@@ -125,6 +131,9 @@
         },
 
         computed: {
+            element() {
+                return $('#box-' + this._uid);
+            },
             boxClass() {
                 return 'box-' + this.theme
                     + (this.solid ? ' box-solid' : '')
@@ -137,8 +146,16 @@
 
         data() {
             return {
-                query: null
+                query: null,
+                collapsed: !this.open
             };
+        },
+
+        methods: {
+            toggle() {
+                this.element.toggleBox();
+                this.collapsed = !this.collapsed;
+            }
         }
     };
 
