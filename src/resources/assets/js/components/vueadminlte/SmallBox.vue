@@ -20,10 +20,6 @@
 				</i>
 			</slot>
 		</a>
-		<div class="overlay"
-        	v-if="overlay">
-            <i class="fa fa-spinner fa-spin spinner-custom"></i>
-        </div>
 	</div>
 
 </template>

@@ -52,17 +52,18 @@
             v-if="footer">
             <slot name="footer"></slot>
         </div>
-        <div class="overlay"
-            v-if="overlay">
-            <i class="fa fa-spinner fa-spin spinner-custom"></i>
-        </div>
+        <overlay v-if="overlay"></overlay>
     </div>
 
 </template>
 
 <script>
 
+    import Overlay from './Overlay.vue';
+
     export default {
+        components: { Overlay },
+
         props: {
             theme: {
                 type: String,
