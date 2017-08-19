@@ -43,8 +43,7 @@
                 </button>
                 <button class="btn btn-box-tool btn-sm"
                     v-if="collapsible"
-                    data-widget="collapse"
-                    @click="$emit('toggle');toggle()">
+                    @click="toggle()">
                     <i class="fa fa-minus"
                         v-if="!collapsed">
                     </i>
@@ -61,7 +60,8 @@
             </div>
         </div>
         <div class="box-body"
-            :style="bodyStyle">
+            :style="bodyStyle"
+            :id="'box-body-' + _uid">
             <slot></slot>
         </div>
         <div class="box-footer"
@@ -94,7 +94,7 @@
             },
             open: {
                 type: Boolean,
-                default: false
+                default: true
             },
             footer: {
                 type: Boolean,
@@ -141,15 +141,14 @@
         },
 
         computed: {
-            element() {
-                return $('#box-' + this._uid);
+            boxBody() {
+                return $('#box-body-' + this._uid);
             },
             searchInput() {
                 return $('#search-input-' + this._uid);
             },
             boxClass() {
-                return 'box-' + this.theme
-                    + (this.solid ? ' box-solid' : '')
+                return 'box-' + this.theme + (this.solid ? ' box-solid' : '')
                     + (this.open ? '': ' collapsed-box');
             },
             headerClass() {
@@ -160,14 +159,29 @@
         data() {
             return {
                 query: null,
-                collapsed: !this.open
+                collapsed: !this.open,
+                inTransition: false,
             };
         },
 
         methods: {
             toggle() {
-                this.element.toggleBox();
-                this.collapsed = !this.collapsed;
+                if (this.inTransition) {
+                    return false;
+                }
+
+                this.$emit('toggle');
+                this.inTransition = true;
+
+                return this.collapsed ? this.boxBody.slideDown(500, () => {
+                    this.collapsed = false;
+                    this.$emit('expanded');
+                    this.inTransition = false;
+                }) : this.boxBody.slideUp(500, () => {
+                    this.collapsed = true;
+                    this.$emit('collapsed');
+                    this.inTransition = false;
+                });
             }
         }
     };
