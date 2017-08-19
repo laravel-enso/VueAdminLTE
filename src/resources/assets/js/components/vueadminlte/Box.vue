@@ -13,13 +13,23 @@
                 {{ title }}
             </h3>
             <div class="box-tools pull-right">
-                <span v-if="search">
-                    <i class="fa fa-search"></i>
+                <span
+                    v-if="search">
                     <input type="text"
                         size="15"
+                        :id="'search-input-' + _uid"
                         class="search margin-right-xs"
                         v-model="query"
                         @input="$emit('query-update', query)">
+                    <a class="input-button"
+                        @click="query=null"
+                        v-if="query">
+                        <i class="fa fa-times"></i>
+                    </a>
+                    <a class="input-button"
+                        @click="searchInput.focus()">
+                        <i class="fa fa-search"></i>
+                    </a>
                 </span>
                 <slot name="btn-box-tool"></slot>
                 <span class="badge bg-orange"
@@ -134,6 +144,9 @@
             element() {
                 return $('#box-' + this._uid);
             },
+            searchInput() {
+                return $('#search-input-' + this._uid);
+            },
             boxClass() {
                 return 'box-' + this.theme
                     + (this.solid ? ' box-solid' : '')
@@ -166,6 +179,10 @@
     input.search {
         color: #3c3a3a;
         vertical-align: middle;
+    }
+
+    a.input-button {
+        cursor: pointer;
     }
 
 </style>
