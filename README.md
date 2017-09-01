@@ -8,7 +8,95 @@
 [![Latest Stable Version](https://poser.pugx.org/laravel-enso/vueadminlte/version)](https://packagist.org/packages/laravel-enso/vueadminlte)
 <!--/h-->
 
-Admin LTE Vuefied for Laravel Enso
+Admin LTE Vueified for [Laravel Enso](https://github.com/laravel-enso/Enso)
+
+### Features
+- `Box`
+- `BoxWidget`
+- `Breadcrumbs` - uses is included in the `Page` component and automatically generates the breadcrumbs
+- `InfoBox`
+- `Notifications` - is the notifications menu, used in the header 
+- `Overlay` - is a spinner overlay used to indicate the loading state
+- `Page` - is the container for the page contents
+- `SmallBox`
+- `Tabs`
+- `UserMenu` - is the user menu, used in the header
+- `UserWidget`
+
+#### Box
+Takes the following parameters:
+- `theme` - string, the class used for setting the styling of the box.
+- `border`, boolean, a flag for showing a border arount the component. Defaults to `false`.
+- `solid` - boolean, a flag for showing a solid type of a box. Defaults to `false`.
+- `open` - boolean, a flag for the starting style (open/closed) of the box. Defaults to `true`.
+- `footer` - string, a flag for displaying the footer. Defaults to `false`.
+- `icon` - string, the class for the icon of the box. Defaults to null.
+- `title` - string, the text for the box title. Defaults to null.
+- `search` - boolean, a flag for displaying the search input. Defaults to `false`.
+- `badge` - number, the number to be displayed in a badge, in the box header. Defaults to null.
+- `refresh` - boolean, a flag for showing the refresh control. Defaults to false. 
+- `collapsible` - boolean, a flag for showing the minimization control. Defaults to false.
+- `removable` - boolean, a flag for showing the close control. Defaults to false.
+- `overlay` - boolean, a flag for displaying the loading overlay (spinner). Defaults to false. 
+- `bodyStyle` - object, an object for styling the body. Defaults to `{}`.
+
+#### Breadcrumbs
+- takes no parameters.
+- uses the global `Store` object and the given breadcrumbs to automatically generate breadcrumbs for the current page.
+- is included in the `Page` component but can be used standalone if neede, as long as it has access to the `Store`.
+
+#### Info Box
+Takes the following parameters:
+- `theme` - string, the class used for setting the styling of the box. Required.
+- `icon` - string, the class for the icon of the box. Defaults to null.
+- `text` - string, the text shown in the box. Defaults to null.
+- `number`, string, the text shown in the box. Defaults to null.
+- `progress` - string, progress percentage. Defaults to `false`.
+- `description` - string, the description shown for the progress. Defaults to `false`.
+
+#### Notifications
+Takes the following parameters:
+- `user-id` - number, the id of the user for whom the notifications are loaded. Required.
+- `paginate` - number, the # of items on one page, shown or loaded. Defaults to 6.
+
+#### Overlay
+Takes the following parameters:
+- `line-fg-Color` - string, the color for the foreground of the spinner. Defaults to `#41b883`.
+- `line-bg-Color` - string, the color for the background of the spinner. Defaults to `transparent`.
+- `speed` - number, the speed of the spinner. Defaults to 1.
+- `size` - string, the size of the spinner. Defaults to `medium`.
+
+#### Page
+Takes the following parameters:
+- `custom-render` - function, the method for handling custom rendering. Defaults to null.
+
+#### Small Box
+Takes the following parameters:
+- `theme` - string, the class used for setting the styling of the box.
+- `icon` - string, the class for the icon of the box. Defaults to null.
+- `title` - string, the text for the box title. Defaults to null.
+- `body`, string, text shown as body. Defaults to null.
+- `overlay` - boolean, a flag for displaying the loading overlay (spinner). Defaults to false. 
+
+#### Tabs
+Takes the following parameters:
+- `tabs` - array, array of strings / objects used for rendering the tabs and their slots. Required.
+- `title` - string, the text for the box title. Defaults to null.
+- `reverse` - boolean, flag for reversing the tab list. Defaults to false.
+- `active`, number, the index of the active tab. Defaults to 0.
+- `icon` - string, the class for the icon of the box. Defaults to null. 
+
+#### User Menu
+Takes no parameters, uses the global `Store` variable
+
+#### User Widget
+- `theme` - string, the class used for setting the styling. Required.
+- `background` - string, the class used for setting the background.
+- `avatar` - string, the url for the location of the avatar picture.
+- `name` - string, the name of the user displayed. Defaults to null.
+- `position` - string, the position of the user. Defaults to null.
+- `items` - array, list of items to be displayed. Each item must be an object with `value` and `label` properties. Defaults to empty array.
+- `overlay` - boolean, a flag for displaying the loading overlay (spinner). Defaults to false.
 
 <!--h-->
 ### Contributions
