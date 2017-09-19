@@ -30,7 +30,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "LaravelEnso\\VueAdminLTE\\VueAdminLteServiceProvider"
+                "LaravelEnso\\VueAdminLTE\\VueAdminLTEServiceProvider"
             ],
             "aliases": {}
         }

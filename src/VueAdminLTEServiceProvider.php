@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelEnso\VueAdminLte;
+namespace LaravelEnso\VueAdminLTE;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -10,11 +10,7 @@ class VueAdminLTEServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/resources/assets/js' => resource_path('assets/js/vendor/laravel-enso'),
-        ], 'vue-adminlte');
-
-        $this->publishes([
-            __DIR__.'/resources/assets/js' => resource_path('assets/js/vendor/laravel-enso'),
-        ], 'enso-update');
+        ], 'vue-components');
     }
 
     public function register()
