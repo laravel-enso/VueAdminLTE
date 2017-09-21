@@ -3,6 +3,7 @@
     <div :id="'vue-select-' + _uid"
         class="vue-select">
         <multiselect :value="value"
+            :internal-search="!isServerSide"
             searchable allow-empty
             :disabled="disabled"
             :multiple="multiple"
