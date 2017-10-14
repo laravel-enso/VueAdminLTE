@@ -103,7 +103,6 @@
 
         methods: {
             post() {
-                console.log(this.$parent.$parent);
                 this.$parent.$parent.loading = true;
                 axios.post('/core/comments', this.postParams()).then(response => {
                     this.$emit('add', response.data)
