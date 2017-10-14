@@ -46,7 +46,8 @@
 							<i class="fa fa-envelope-o text-orange"
 								v-else>
 							</i>
-							<span :class="{ 'bold' : !notification.read_at }">
+							<span :class="{ 'bold' : !notification.read_at }"
+								v-tooltip="notification.data.body">
 								{{ notification.data.body }}
 							</span>
 						</a>
