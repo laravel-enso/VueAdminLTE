@@ -53,7 +53,7 @@
   			options: {
   				type: Array,
   				default() {
-  					return {};
+  					return [];
   				}
   			},
   			value: {
