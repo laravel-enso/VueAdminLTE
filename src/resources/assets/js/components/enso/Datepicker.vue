@@ -122,6 +122,10 @@
 
 <style>
 
+		div.input-group.flatpickr > input {
+		padding: 5px;
+	}
+
     a.input-button {
     	cursor: pointer;
     }
