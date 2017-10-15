@@ -135,7 +135,7 @@
 				axios.patch('/core/notifications/markAsRead/' + notification.id).then(response => {
 					this.unreadCount = this.unreadCount ? --this.unreadCount : this.unreadCount;
 					window.location.href = notification.data.link;
-					notification = response.data; // fixme
+					notification.read_at = moment().format('Y-MM-DD H:mm:s');
 				}).catch(error => {
 					this.reportEnsoException(error);
 				});
