@@ -501,6 +501,7 @@
                 }
             },
             clearState() {
+                this.$emit('clear-state');
                 if (localStorage.hasOwnProperty(this.settingsKey)) {
                     localStorage.removeItem(this.settingsKey)
                 }
