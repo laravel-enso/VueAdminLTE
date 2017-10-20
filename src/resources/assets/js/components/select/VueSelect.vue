@@ -102,6 +102,9 @@
             isServerSide() {
                 return this.source !== null;
             },
+            hasSelection() {
+                return (this.multiple && this.value.length) || (!this.multiple && this.value !== null);
+            },
             optionKeys() {
                 return this.keyMap === 'number'
                    ? Object.keys(this.optionList).map(Number)
@@ -283,7 +286,7 @@
         height: 30px
     }
 
-        .multiselect__clear {
+    .multiselect__clear {
         position: absolute;
         right: 41px;
         height: 40px;
