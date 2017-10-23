@@ -89,7 +89,7 @@
                 type: Object,
                 default() {
                     return Store ? {
-                        placeholder: this.placeholder || Store.labels.placeholder,
+                        placeholder: this.placeholder || Store.labels.selectOption,
                         selected: Store.labels.selected,
                         select: Store.labels.select,
                         deselect: Store.labels.deselect,
