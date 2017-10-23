@@ -187,7 +187,7 @@
                 this.optionList = response.data;
                 let self = this;
 
-                if (!this.query && !this.valueIsMatched) {
+                if (!this.query && !this.valueIsMatched()) {
                     this.clear();
                 }
             },
