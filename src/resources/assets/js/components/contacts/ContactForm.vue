@@ -113,8 +113,8 @@
                     this.$emit('store', response.data);
                 }).catch(error => {
                     this.reportEnsoException(error);
-                    if (error.response.data.errorBag) {
-                        this.errors = error.response.data.errorBag;
+                    if (error.response.data.errors) {
+                        this.errors = error.response.data.errors;
                     }
                 });
             },
@@ -123,8 +123,8 @@
                     this.$emit('update', this.contact);
                 }).catch(error => {
                     this.reportEnsoException(error);
-                    if (error.response.data.errorBag) {
-                        this.errors = error.response.data.errorBag;
+                    if (error.response.data.errors) {
+                        this.errors = error.response.data.errors;
                     }
                 });
             },
