@@ -7,9 +7,8 @@
                 <i class="btn btn-xs btn-primary fa fa-upload"></i>
             </slot>
         </span>
-        <form :id="'file-form-' + _uid">
-            <input :id="'upload-input-' + _uid"
-                type="file"
+        <form>
+            <input type="file"
                 :name="multiple ? 'files[]' : 'file'"
                 :multiple="multiple"
                 class="hidden"
@@ -37,12 +36,18 @@
                 validator(value) {
                     return value <= 8388608;
                 }
+            },
+            params: {
+                type: Object,
+                default: null
             }
         },
 
         data() {
             return {
                 input: null,
+                formData: new FormData(),
+                form: null
             };
         },
 
@@ -52,27 +57,39 @@
             },
             upload() {
                 this.$emit('upload-start');
+                this.setFormData()
 
-                axios.post(this.url, this.getFormData()).then(response => {
-                    this.resetForm();
+                axios.post(this.url, this.formData).then(response => {
+                    this.form.reset();
                     this.$emit('upload-successful', response.data);
                 }).catch(error => {
-                    this.resetForm();
+                    this.form.reset();
                     this.$emit('upload-error');
                     this.reportEnsoException(error);
                 });
             },
-            getFormData() {
-                let formData = new FormData(),
-                    files = this.input.files;
-
+            setFormData() {
+                let files = this.input.files;
+                this.addFiles(files);
+                this.addParams();
+            },
+            addFiles(files) {
                 for (let i = 0; i < files.length; i++) {
                     if (this.sizeCheckPasses(files[i])) {
-                        formData.append("file_" + i, files[i]);
+                        this.formData.append("file_" + i, files[i]);
                     }
                 }
+            },
+            addParams() {
+                if (this.params) {
+                    for (let key in this.params) {
+                        let value = typeof this.params[key] === 'object'
+                            ? JSON.stringify(this.params[key])
+                            : this.params[key];
 
-                return formData;
+                        this.formData.append(key, value);
+                    }
+                }
             },
             sizeCheckPasses(file) {
                 if (file.size > this.fileSizeLimit) {
@@ -84,13 +101,12 @@
                 return true;
             },
             resetForm() {
-                let form = document.getElementById('file-form-' + this._uid);
-                form.reset();
             }
         },
 
         mounted() {
-            this.input = document.getElementById('upload-input-' + this._uid);
+            this.input = this.$el.querySelector('input');
+            this.form = this.$el.querySelector('form');
         }
     }
 
