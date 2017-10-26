@@ -32,7 +32,6 @@
 		},
 
 		mounted() {
-			initBootstrapSelect('select.select', '100%', true, $.fn.selectpicker.defaults.noneSelectedText); //fixme
 		}
 	 }
 

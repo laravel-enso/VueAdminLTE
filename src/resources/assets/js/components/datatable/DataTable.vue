@@ -654,11 +654,6 @@
         margin-right: 4px;
     }
 
-    div.dataTables_length > label > div.bootstrap-select > button.btn.dropdown-toggle.btn-default {
-        box-shadow: none;
-        border: 1px solid #ddd;
-    }
-
     div.dt-button-collection {
         width: auto;
     }
