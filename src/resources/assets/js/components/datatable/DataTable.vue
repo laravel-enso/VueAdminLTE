@@ -200,8 +200,9 @@
                     ajax: {
                         url: this.source + '/setTableData',
                         headers: { 'X-CSRF-TOKEN': Laravel.csrfToken },
+                        method: 'PATCH'
                     },
-                    table: this.id || '#table-' + this._uid,
+                    table: '#' + (this.id || 'table-' + this._uid),
                     fields: []
                 }
             }
@@ -415,14 +416,17 @@
             },
             addPostSubmitListener() {
                 this.dtEditorHandle.on('postSubmit', function(event, response) {
+                    console.log(response)
                     if (!response) {
                         toastr.error("Something went wrong");
                         throw 500;
                     }
 
-                    if (response.level) {
+                    if (response.errors) {
                         $('div.DTE_Field_InputControl').addClass('has-error');
-                        return toastr[response.level](response.message);
+                        for (let error in response.errors) {
+                            return toastr.error(response.errors[error]);
+                        }
                     }
 
                     $('div.DTE_Field_InputControl').removeClass('has-error');
@@ -556,7 +560,6 @@
 
     div.DTE_Inline div.DTE_Inline_Field div.DTE_Field input,
     div.DTE_Inline div.DTE_Inline_Buttons div.DTE_Field input {
-        width: 100%;
         text-align: center;
     }
 
