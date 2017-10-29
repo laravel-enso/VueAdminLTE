@@ -200,7 +200,12 @@
                     ajax: {
                         url: this.source + '/setTableData',
                         headers: { 'X-CSRF-TOKEN': Laravel.csrfToken },
-                        method: 'PATCH'
+                        type: 'PATCH',
+                        data: {
+                            extraFilters() { return JSON.stringify(self.extraFilters); },
+                            intervalFilters() { return JSON.stringify(self.intervalFilters); },
+                            customParams() { return JSON.stringify(self.customParams); }
+                        }
                     },
                     table: '#' + (this.id || 'table-' + this._uid),
                     fields: []
@@ -416,7 +421,6 @@
             },
             addPostSubmitListener() {
                 this.dtEditorHandle.on('postSubmit', function(event, response) {
-                    console.log(response)
                     if (!response) {
                         toastr.error("Something went wrong");
                         throw 500;
