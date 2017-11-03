@@ -126,6 +126,11 @@
         },
 
         watch: {
+            options: {
+                handler() {
+                    this.optionList = this.options;
+                }
+            },
             params: {
                 handler() {
                     this.getOptions();
