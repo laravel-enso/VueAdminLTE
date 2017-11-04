@@ -22,7 +22,7 @@
                         v-model="query"
                         @input="$emit('query-update', query)">
                     <a class="input-button"
-                        @click="query=null;$emit('query-update', query)"
+                        @click="clearQuery(); $emit('query-update', query)"
                         v-if="query">
                         <i class="fa fa-times"></i>
                     </a>
@@ -182,6 +182,9 @@
                     this.$emit('collapsed');
                     this.inTransition = false;
                 });
+            },
+            clearQuery() {
+                this.query = null;
             }
         }
     };
