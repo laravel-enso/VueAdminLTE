@@ -63,8 +63,8 @@
             </vue-select>
         </div>
         <modal :show="showModal"
-            @cancel-action="showModal = false"
-            @commit-action="$emit('delete-video')">
+            @cancel-action="showModal=false"
+            @commit-action="$emit('delete-video'); showModal=false">
         </modal>
     </div>
 </template>
