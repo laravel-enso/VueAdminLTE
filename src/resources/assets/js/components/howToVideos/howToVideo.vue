@@ -119,7 +119,7 @@
             updateDescription() {
             	this.video.description = this.description;
             	this.editMode = false;
-            	this.$emit('update');
+            	this.$emit('update-video');
             },
 			reportError() {
                 toastr.error('Error uploading poster');
