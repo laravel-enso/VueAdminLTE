@@ -1,5 +1,6 @@
 <template>
     <box :theme="this.errors.any() ? 'danger' : data.theme"
+        @remove="$emit('form-close')"
         :icon="data.icon"
         :title="data.title"
         open collapsible removable
