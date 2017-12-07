@@ -51,27 +51,24 @@
 
         methods: {
             getEditForm() {
-                try {
-                    axios.get('/addresses/getEditForm/' + this.address.id).then(response => {
-                        this.form = response.data;
-                    }).then(()=> {
-                        this.isOpen = true; //box fix
-                    });
-                } catch(error) {
+                axios.get('/addresses/getEditForm/' + this.address.id).then(response => {
+                    this.form = response.data;
+                }).then(()=> {
+                    this.isOpen = true; //box fix
+                }).catch( error => {
                     this.reportEnsoException(error);
-                }
+                });
             },
             getCreateForm() {
-                try {
-                    const params = {addressable_id: this.id, addressable_type: this.type};
-                    axios.get('/addresses/getCreateForm', {params: params}).then(response => {
-                        this.form = response.data;
-                    }).then(()=> {
-                        this.isOpen = true; //box fix
-                    });
-                } catch(error) {
+                const params = {addressable_id: this.id, addressable_type: this.type};
+                axios.get('/addresses/getCreateForm', {params: params}).then(response => {
+                    this.form = response.data;
+                }).then(()=> {
+                    this.isOpen = true; //box fix
+                }).catch( error => {
                     this.reportEnsoException(error);
-                }
+                });
+
             },
         },
         mounted: function () {
