@@ -1,7 +1,7 @@
 <template>
 
     <small-box icon="fa fa-map"
-        :theme="'bg-olive'">
+        :theme="address.is_default ? 'bg-olive' : 'bg-gray'">
         <address class="contact-info">
 
             <br>
@@ -26,6 +26,10 @@
         <span slot="footer">
             <i class="fa fa-pencil-square-o pull-left margin-left-md"
                 @click="handleEdit"></i>
+
+            <i class="fa fa-anchor"
+               @click="setDefault"></i>
+
             <i class="fa fa-trash-o pull-right margin-right-md"
                 @click="showModal=true"></i>
             <div class="clearfix"></div>
@@ -52,7 +56,9 @@
 
 <script>
 
+    import AddressModalForm from './AddressModalForm';
     export default {
+        components: {AddressModalForm},
         props: {
             index: {
                 type: Number,
@@ -74,6 +80,14 @@
         },
 
         methods: {
+
+            setDefault() {
+                axios.get('/addresses/setDefault/' + this.address.id).then(response => {
+                    this.$emit('default-set', response.data.message);
+                }).catch((error) => {
+                    this.reportEnsoException(error);
+                });
+            },
             handleEdit() {
 
                 this.getForm();

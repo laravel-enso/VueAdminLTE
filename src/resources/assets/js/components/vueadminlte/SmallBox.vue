@@ -11,7 +11,7 @@
 		<div class="icon">
 			<i :class="icon"></i>
 		</div>
-		<a href="#"
+		<a href="javascript:;"
 			class="small-box-footer">
 			<slot name="footer">
 				{{ labels.more }}

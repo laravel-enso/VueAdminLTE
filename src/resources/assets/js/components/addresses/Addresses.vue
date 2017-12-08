@@ -23,9 +23,10 @@
                 <div class="col-sm-6 col-lg-4">
                     <address-card :address="address"
                         @updated="get"
+                        @edit="get"
+                        @default-set="handleDefaultSet"
                         @deleted="get"
                         @delete="destroy"
-                        @edit="get"
                         :index="index">
                     </address-card>
                 </div>
@@ -101,6 +102,11 @@
         },
 
         methods: {
+
+            handleDefaultSet($event) {
+                this.get();
+                toastr.success($event);
+            },
             get() {
                 this.loading = true;
 
