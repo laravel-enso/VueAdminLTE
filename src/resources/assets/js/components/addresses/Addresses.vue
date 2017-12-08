@@ -47,8 +47,9 @@
 <script>
 
     import AddressCard from './AddressCard';
+    import AddressModalForm from './AddressModalForm';
     export default {
-        components: {AddressCard},
+        components: {AddressCard, AddressModalForm},
         props: {
             id: {
                 type: Number,
