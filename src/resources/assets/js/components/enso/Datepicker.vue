@@ -122,8 +122,9 @@
 
 <style>
 
-		div.input-group.flatpickr > input {
+	div.input-group.flatpickr > input {
 		padding: 5px;
+		z-index: 0;
 	}
 
     a.input-button {
