@@ -45,6 +45,13 @@ Takes the following parameters:
 - uses the global `Store` object and the given breadcrumbs to automatically generate breadcrumbs for the current page.
 - is included in the `Page` component but can be used standalone if neede, as long as it has access to the `Store`.
 
+### HowToVideos
+Takes the following parameters:
+- `video`, object, contains the information to display a video | required
+- `tagList`, object, contains the list of all available tags | required
+
+Note that this component has not been designed to be reused outside of the HowToVideos menu/page.
+
 #### Info Box
 Takes the following parameters:
 - `theme` - string, the class used for setting the styling of the box. Required.

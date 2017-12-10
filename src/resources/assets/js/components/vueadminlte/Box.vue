@@ -1,12 +1,12 @@
 <template>
 
     <div class="box"
-        :class="boxClass"
-        :id="'box-' + _uid">
+         :class="boxClass"
+         :id="'box-' + _uid">
         <div class="box-header"
-            :class="headerClass">
+             :class="headerClass">
             <i :class="icon"
-                v-if="icon">
+               v-if="icon">
             </i>
             <h3 class="box-title"
                 v-if="title">
@@ -14,58 +14,58 @@
             </h3>
             <div class="box-tools pull-right">
                 <span
-                    v-if="search">
+                        v-if="search">
                     <input type="text"
-                        size="15"
-                        :id="'search-input-' + _uid"
-                        class="search margin-right-xs"
-                        v-model="query"
-                        @input="$emit('query-update', query)">
+                           size="15"
+                           :id="'search-input-' + _uid"
+                           class="search margin-right-xs"
+                           v-model="query"
+                           @input="$emit('query-update', query)">
                     <a class="input-button"
-                        @click="clearQuery(); $emit('query-update', query)"
-                        v-if="query">
+                       @click="clearQuery(); $emit('query-update', query)"
+                       v-if="query">
                         <i class="fa fa-times"></i>
                     </a>
                     <a class="input-button"
-                        @click="searchInput.focus()">
+                       @click="searchInput.focus()">
                         <i class="fa fa-search"></i>
                     </a>
                 </span>
                 <slot name="btn-box-tool"></slot>
                 <span class="badge bg-orange"
-                    v-if="badge !== null">
+                      v-if="badge !== null">
                     {{ badge }}
                 </span>
                 <button class="btn btn-box-tool btn-sm"
-                    v-if="refresh"
-                    @click="$emit('refresh')">
+                        v-if="refresh"
+                        @click="$emit('refresh')">
                     <i class="fa fa-refresh"></i>
                 </button>
                 <button class="btn btn-box-tool btn-sm"
-                    v-if="collapsible"
-                    @click="toggle()">
+                        v-if="collapsible"
+                        @click="toggle()">
                     <i class="fa fa-minus"
-                        v-if="!collapsed">
+                       v-if="!collapsed">
                     </i>
                     <i class="fa fa-plus"
-                        v-if="collapsed">
+                       v-if="collapsed">
                     </i>
                 </button>
                 <button class="btn btn-box-tool btn-sm"
-                    data-widget="remove"
-                    v-if="removable"
-                    @click="$emit('remove')">
+                        data-widget="remove"
+                        v-if="removable"
+                        @click="$emit('remove')">
                     <i class="fa fa-times"></i>
                 </button>
             </div>
         </div>
         <div class="box-body"
-            :style="bodyStyle"
-            :id="'box-body-' + _uid">
+             :style="bodyStyle"
+             :id="'box-body-' + _uid">
             <slot></slot>
         </div>
         <div class="box-footer"
-            v-if="footer">
+             v-if="footer">
             <slot name="footer"></slot>
         </div>
         <overlay v-if="overlay"></overlay>
@@ -162,6 +162,10 @@
                 collapsed: !this.open,
                 inTransition: false,
             };
+        },
+
+        watch: {
+            'open' : 'toggle'
         },
 
         methods: {
