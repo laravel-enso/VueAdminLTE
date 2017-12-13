@@ -22,24 +22,45 @@
             <div v-for="(address, index) in filteredAddresses">
                 <div class="col-sm-6 col-lg-4">
                     <address-card :address="address"
-                        @updated="get"
-                        @edit="get"
                         @default-set="handleDefaultSet"
-                        @deleted="get"
-                        @delete="destroy"
+                        @do-edit="handleEdit(address)"
+                        @do-delete="destroy"
                         :index="index">
+
+                            <template slot="address-card-template" :address="address">
+                                <slot name="address-template" :address="address">
+                                </slot>
+                            </template>
+
                     </address-card>
                 </div>
             </div>
         </div>
         <address-modal-form
-            v-if="showForm"
+            v-if="form"
+            :form="form"
             :type="type"
             :id="id"
-            @form-close="showForm=false"
-            @post="get();showForm=false"
-            @delete="get();showForm=false"
-            @store="get();showForm=false">
+            ref="modal"
+            @patch="get();form=null"
+            @form-close="form=null"
+            @post="get();form=null"
+            @delete="get();form=null"
+            @store="get();form=null">
+
+
+            <template
+                v-for="element in form.attributes"
+                v-if="element.config.custom"
+                :slot="element.column"
+                slot-scope="props">
+                    <slot
+                        :name="props.element.column"
+                        :element="props.element"
+                        :errors="props.errors">
+                    </slot>
+            </template>
+
         </address-modal-form>
     </box>
 
@@ -96,13 +117,32 @@
                 loading: false,
                 query: '',
                 addresses: [],
-                showForm: false,
-                bodyStyle: {'max-height': '415px', 'overflow-y': 'auto'}
+                bodyStyle: {'max-height': '415px', 'overflow-y': 'auto'},
+                form:null,
             };
         },
 
         methods: {
 
+            getEditForm(address) {
+                axios.get('/addresses/getEditForm/' + address.id).then(response => {
+                    this.$emit('form-loaded', response.data);
+                    this.form = response.data;
+                }).catch( error => {
+                    this.reportEnsoException(error);
+                });
+            },
+            getCreateForm() {
+                const params = {addressable_id: this.id, addressable_type: this.type};
+                axios.get('/addresses/getCreateForm', {params: params}).then(response => {
+                    this.form = response.data;
+                }).catch( error => {
+                    this.reportEnsoException(error);
+                });
+            },
+            handleEdit(address) {
+                this.getEditForm(address);
+            },
             handleDefaultSet($event) {
                 this.get();
                 toastr.success($event);
@@ -119,11 +159,12 @@
                 });
             },
             create() {
+
+                this.getCreateForm();
+
                 if (this.$refs.box.collapsed) {
                     this.$refs.box.toggle();
                 }
-
-                this.showForm=true;
             },
             destroy(payload) {
 

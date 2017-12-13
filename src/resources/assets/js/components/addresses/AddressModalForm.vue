@@ -8,9 +8,23 @@
                             v-if="form"
                             :data="form"
                             :open="isOpen"
+                            collapsible
                             :removable="true"
-                            ref="addressForm"
                             v-on="$listeners">
+
+
+                            <template
+                                v-for="element in form.attributes"
+                                v-if="element.config.custom"
+                                :slot="element.column"
+                                slot-scope="props">
+                                    <slot
+                                        :name="props.element.column"
+                                        :element="props.element"
+                                        :errors="props.errors">
+                                    </slot>
+                            </template>t
+
                         </vue-form>
                     </div>
                 </div>
@@ -23,14 +37,7 @@
 
     export default {
         props: {
-            id: {
-                default: null
-            },
-            type: {
-                type: String,
-                default: ""
-            },
-            address: {
+            form: {
                 type: Object,
                 default: null
             },
@@ -45,36 +52,14 @@
                 errors: {},
                 labels: Store.labels,
                 isOpen: false,
-                form: null
             };
         },
 
         methods: {
-            getEditForm() {
-                axios.get('/addresses/getEditForm/' + this.address.id).then(response => {
-                    this.form = response.data;
-                }).then(()=> {
-                    this.isOpen = true; //box fix
-                }).catch( error => {
-                    this.reportEnsoException(error);
-                });
-            },
-            getCreateForm() {
-                const params = {addressable_id: this.id, addressable_type: this.type};
-                axios.get('/addresses/getCreateForm', {params: params}).then(response => {
-                    this.form = response.data;
-                }).then(()=> {
-                    this.isOpen = true; //box fix
-                }).catch( error => {
-                    this.reportEnsoException(error);
-                });
 
-            },
         },
         mounted: function () {
-            this.$nextTick(()=>{
-                this.address ? this.getEditForm() : this.getCreateForm();
-            });
+            this.isOpen = true; //box fix
         }
     }
 
