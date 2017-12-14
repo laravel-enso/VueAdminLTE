@@ -11,6 +11,7 @@
 Admin LTE Vueified for [Laravel Enso](https://github.com/laravel-enso/Enso)
 
 ### Features
+- `Addresses` - polymorphic addresses functionality
 - `Box`
 - `BoxWidget`
 - `Breadcrumbs` - uses is included in the `Page` component and automatically generates the breadcrumbs
@@ -18,10 +19,21 @@ Admin LTE Vueified for [Laravel Enso](https://github.com/laravel-enso/Enso)
 - `Notifications` - is the notifications menu, used in the header 
 - `Overlay` - is a spinner overlay used to indicate the loading state
 - `Page` - is the container for the page contents
+- `RoAddresses` - an extension for addresses with Romanian-specific formatting
 - `SmallBox`
 - `Tabs`
 - `UserMenu` - is the user menu, used in the header
 - `UserWidget`
+
+#### Addresses
+Takes the following parameters:
+ `type` - string, the addressable model alias you set in the config | required
+- `id` - number, the id of the addressable model | required
+- `theme` - string, the class used for setting the styling of the box. Defaults to `primary`.
+- `solid` - boolean, a flag for showing a solid type of a box. Defaults to `false`.
+- `open` - boolean, a flag for the starting style (open/closed) of the box. Defaults to `true`.
+- `title` - string, the text for the box title. Defaults to null.
+
 
 #### Box
 Takes the following parameters:
@@ -43,7 +55,7 @@ Takes the following parameters:
 #### Breadcrumbs
 - takes no parameters.
 - uses the global `Store` object and the given breadcrumbs to automatically generate breadcrumbs for the current page.
-- is included in the `Page` component but can be used standalone if neede, as long as it has access to the `Store`.
+- is included in the `Page` component but can be used standalone if needed, as long as it has access to the `Store`.
 
 ### HowToVideos
 Takes the following parameters:
@@ -76,6 +88,9 @@ Takes the following parameters:
 #### Page
 Takes the following parameters:
 - `custom-render` - function, the method for handling custom rendering. Defaults to null.
+
+#### Romanian Addresses
+Takes the same parameters as Addresses - see above.
 
 #### Small Box
 Takes the following parameters:
