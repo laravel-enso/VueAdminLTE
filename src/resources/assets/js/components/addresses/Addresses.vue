@@ -125,7 +125,7 @@
         methods: {
 
             getEditForm(address) {
-                axios.get('/addresses/getEditForm/' + address.id).then(response => {
+                axios.get('/addresses/' + address.id + '/edit').then(response => {
                     this.$emit('form-loaded', response.data);
                     this.form = response.data;
                 }).catch( error => {
@@ -134,7 +134,7 @@
             },
             getCreateForm() {
                 const params = {addressable_id: this.id, addressable_type: this.type};
-                axios.get('/addresses/getCreateForm', {params: params}).then(response => {
+                axios.get('/addresses/create', {params: params}).then(response => {
                     this.form = response.data;
                 }).catch( error => {
                     this.reportEnsoException(error);
