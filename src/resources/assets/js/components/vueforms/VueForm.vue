@@ -127,6 +127,10 @@
             data: {
                 type: Object,
                 required: true
+            },
+            params: {
+                type: Object,
+                default: null
             }
         },
 
@@ -178,7 +182,7 @@
                 return this.data.attributes.reduce((object, element) => {
                     object[element.column] = element.value;
                     return object;
-                }, {});
+                }, {_params: this.params});
             },
             setOriginal() {
                 let self = this;
