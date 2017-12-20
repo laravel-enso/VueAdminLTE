@@ -8,7 +8,7 @@
         <!--customized card content-->
         <template slot="address-template" slot-scope="props">
             <br>
-            <span v-if="props.address.street">{{labels.street}}: </span>
+            <span v-if="props.address.street">{{props.address.street}} </span>
             <span v-if="props.address.number">{{labels.number}}: {{ props.address.number }}</span>
             <br>
 
