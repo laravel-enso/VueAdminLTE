@@ -17,6 +17,8 @@
             :options="optionKeys"
             :custom-label="customLabel"
             @search-change="query=$event;getOptions()"
+            :taggable="taggable"
+            @tag="$emit('tag', $event)"
             @input="$emit('input', $event)">
             <span slot="noResult">
                 {{ labels.noResult }}
@@ -56,6 +58,10 @@
                 default() {
                     return {};
                 }
+            },
+            taggable: {
+                type: Boolean,
+                default: false,
             },
             keyMap: {
                 type: String,
@@ -115,6 +121,10 @@
 
         filters: {
             highlight(option, query) {
+                if (!option) {
+                    return option;
+                }
+
                 query.split(' ').filter(word => {
                     return word.length;
                 }).forEach(word => {

@@ -40,11 +40,11 @@
             	default: null
             },
             number: {
-            	type: String,
+            	type: Number,
             	default: null
             },
             progress: {
-            	type: String,
+            	type: Number,
             	default: false
             },
             description: {
