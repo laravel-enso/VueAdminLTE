@@ -12,6 +12,7 @@
             :deselect-label="labels.deselect"
             :selected-label="labels.selected"
             :placeholder="labels.placeholder"
+            :tag-placeholder="labels.tagPlaceholder"
             :loading="loading"
             :options-limit="100"
             :options="optionKeys"
@@ -99,7 +100,8 @@
                         selected: Store.labels.selected,
                         select: Store.labels.select,
                         deselect: Store.labels.deselect,
-                        noResult: Store.labels.noResult
+                        noResult: Store.labels.noResult,
+                        tagPlaceholder: Store.labels.tagPlaceholder
                     } : null;
                 }
             }
