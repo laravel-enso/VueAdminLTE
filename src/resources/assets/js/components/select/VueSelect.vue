@@ -203,7 +203,7 @@
                 let self = this;
 
                 if (!this.query && !this.valueIsMatched()) {
-                    this.clear();
+                    //this.clear();
                 }
             },
             valueIsMatched() {
@@ -220,6 +220,10 @@
                         return val === option;
                     }).length > 0;
                 }).length > 0;
+            },
+            selectOption(value) {
+                this.$emit('input', this.multiple ? [...this.value, value] : value);
+                this.$nextTick(() => this.getOptions());
             },
             customLabel(option) {
                 return this.optionList[option];
