@@ -7,8 +7,9 @@
                 <i class="btn btn-xs btn-primary fa fa-upload"></i>
             </slot>
         </span>
-        <form>
+        <form @submit.prevent>
             <input type="file"
+                ref="input"
                 :name="multiple ? 'files[]' : 'file'"
                 :multiple="multiple"
                 class="hidden"
@@ -45,31 +46,29 @@
 
         data() {
             return {
-                input: null,
                 formData: new FormData(),
-                form: null
             };
         },
 
         methods: {
             openFileBrowser() {
-                this.input.click();
+                this.$refs.input.click();
             },
             upload() {
                 this.$emit('upload-start');
-                this.setFormData()
+                this.setFormData();
 
                 axios.post(this.url, this.formData).then(response => {
-                    this.form.reset();
+                    this.reset();
                     this.$emit('upload-successful', response.data);
                 }).catch(error => {
-                    this.form.reset();
+                    this.reset();
                     this.$emit('upload-error');
                     this.reportEnsoException(error);
                 });
             },
             setFormData() {
-                let files = this.input.files;
+                const files = this.$refs.input.files;
                 this.addFiles(files);
                 this.addParams();
             },
@@ -93,28 +92,24 @@
             },
             sizeCheckPasses(file) {
                 if (file.size > this.fileSizeLimit) {
-                    toastr.warning('File size Limit of ' + this.fileSizeLimit + ' Kb excedeed by ' + file.name);
+                    toastr.warning('File size Limit of ' + this.fileSizeLimit + ' Kb exceeded by ' + file.name);
 
                     return false;
                 }
 
                 return true;
             },
-            resetForm() {
+            reset() {
+                this.formData = new FormData();
             }
         },
-
-        mounted() {
-            this.input = this.$el.querySelector('input');
-            this.form = this.$el.querySelector('form');
-        }
-    }
+    };
 
 </script>
 
 <style>
 
-    button.file-upload {
+    span.file-upload {
         background: transparent;
     }
 
