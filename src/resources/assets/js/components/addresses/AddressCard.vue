@@ -22,6 +22,9 @@
                 <span v-if="address.postal_area">{{labels.postalArea}}: {{ address.postal_area }}</span>
                 <span v-if="address.administrative_area">{{labels.administrativeArea}}: {{ address.administrative_area }}</span>
                 <br>
+                <span class="icon">
+                    <i class="fa fa-globe"></i>
+                </span>
                 {{ address.country_name }} <br>
                 <i class="fa fa-sticky-note "></i> {{ address.obs }} <br>
             </slot>
@@ -29,10 +32,10 @@
         </address>
         <span slot="footer">
             <i class="fa fa-pencil-square-o pull-left margin-left-md"
-                @click="handleEdit"></i>
+                @click="$emit('edit')"></i>
 
             <i class="fa fa-anchor"
-               @click="setDefault"></i>
+               @click="$emit('set-default')"></i>
 
             <i class="fa fa-trash-o pull-right margin-right-md"
                 @click="showModal=true"></i>
@@ -41,7 +44,7 @@
 
         <modal :show="showModal"
             @cancel-action="showModal=false"
-            @commit-action="destroy()">
+            @commit-action="$emit('delete')">
         </modal>
     </small-box>
 
@@ -49,46 +52,21 @@
 
 <script>
 
-    import AddressModalForm from './AddressModalForm';
     export default {
-        components: {AddressModalForm},
         props: {
-            index: {
-                type: Number,
-                required: true
-            },
             address: {
                 type: Object,
-                required: true
+                required: true,
             },
         },
 
         data() {
             return {
-                form: null,
                 labels: Store.labels,
                 showModal: false
             };
         },
-
-        methods: {
-
-            setDefault() {
-                axios.get('/addresses/setDefault/' + this.address.id).then(response => {
-                    this.$emit('default-set', response.data.message);
-                }).catch((error) => {
-                    this.reportEnsoException(error);
-                });
-            },
-            handleEdit() {
-                this.$emit('do-edit');
-            },
-            destroy() {
-                this.showModal = false;
-                this.$emit('do-delete', {index: this.index, id: this.address.id});
-            }
-        }
-    }
+    };
 
 </script>
 

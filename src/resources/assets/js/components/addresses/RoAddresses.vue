@@ -23,7 +23,7 @@
             <span v-if="props.address.postal_area">{{labels.postalArea}}: {{ props.address.postal_area }}</span>
             <span v-if="props.address.administrative_area">{{labels.county}}: {{ props.address.administrative_area }}</span>
             <br>
-            {{ props.address.country_name }} <br>
+            <i class="fa fa-globe"></i> {{ props.address.country_name }} <br>
             <i class="fa fa-sticky-note "></i> {{ props.address.obs }} <br>
         </template>
 
@@ -51,13 +51,13 @@
     import Addresses from './Addresses';
 
     export default {
-        components: {Addresses},
+        components: { Addresses },
         data() {
             return {
                 labels: Store.labels,
                 params: {
-                    county_id: null
-                }
+                    county_id: null,
+                },
             };
         },
         methods: {
@@ -70,8 +70,8 @@
             },
             setCountyId(formData) {
                 this.params.county_id = this.getCountyId(formData);
-            }
-        }
-    }
+            },
+        },
+    };
 
 </script>

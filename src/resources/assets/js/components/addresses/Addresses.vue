@@ -22,9 +22,9 @@
             <div v-for="(address, index) in filteredAddresses">
                 <div class="col-sm-6 col-lg-4">
                     <address-card :address="address"
-                        @default-set="handleDefaultSet"
-                        @do-edit="handleEdit(address)"
-                        @do-delete="destroy"
+                        @set-default="setDefault(address)"
+                        @edit="edit(address)"
+                        @destroy="destroy(address, index)"
                         :index="index">
 
                             <template slot="address-card-template" :address="address">
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <address-modal-form
+        <address-form
             v-if="form"
             :form="form"
             :type="type"
@@ -47,7 +47,6 @@
             @post="get();form=null"
             @delete="get();form=null"
             @store="get();form=null">
-
 
             <template
                 v-for="element in form.attributes"
@@ -61,7 +60,7 @@
                     </slot>
             </template>
 
-        </address-modal-form>
+        </address-form>
     </box>
 
 </template>
@@ -69,17 +68,17 @@
 <script>
 
     import AddressCard from './AddressCard';
-    import AddressModalForm from './AddressModalForm';
+    import AddressForm from './AddressForm';
     export default {
-        components: {AddressCard, AddressModalForm},
+        components: { AddressCard, AddressForm },
         props: {
             id: {
                 type: Number,
-                required: true
+                required: true,
             },
             type: {
                 type: String,
-                required: true
+                required: true,
             },
             theme: {
                 type: String,
@@ -91,11 +90,11 @@
             },
             open: {
                 type: Boolean,
-                default: false
+                default: false,
             },
             title: {
                 type: String,
-                default: null
+                default: null,
             }
         },
 
@@ -118,74 +117,83 @@
                 query: '',
                 addresses: [],
                 bodyStyle: {'max-height': '415px', 'overflow-y': 'auto'},
-                form:null,
+                form: null,
             };
+        },
+
+        created() {
+            this.get();
         },
 
         methods: {
 
-            getEditForm(address) {
+            edit(address) {
+                this.loading = true;
+
                 axios.get('/addresses/' + address.id + '/edit').then(response => {
+                    this.loading = false;
                     this.$emit('form-loaded', response.data);
                     this.form = response.data;
                 }).catch( error => {
-                    this.reportEnsoException(error);
-                });
-            },
-            getCreateForm() {
-                const params = {addressable_id: this.id, addressable_type: this.type};
-                axios.get('/addresses/create', {params: params}).then(response => {
-                    this.form = response.data;
-                }).catch( error => {
-                    this.reportEnsoException(error);
-                });
-            },
-            handleEdit(address) {
-                this.getEditForm(address);
-            },
-            handleDefaultSet($event) {
-                this.get();
-                toastr.success($event);
-            },
-            get() {
-                this.loading = true;
-
-                axios.get('/addresses/list', { params: { id: this.id, type: this.type } }).then(response => {
-                    this.addresses = response.data;
-                    this.loading = false;
-                }).catch(error => {
                     this.loading = false;
                     this.reportEnsoException(error);
                 });
             },
             create() {
-
-                this.getCreateForm();
-
                 if (this.$refs.box.collapsed) {
                     this.$refs.box.toggle();
                 }
-            },
-            destroy(payload) {
 
-                axios.delete('/addresses/' + payload.id).then(response => {
+                const params = {addressable_id: this.id, addressable_type: this.type};
+                this.loading = true;
+
+                axios.get('/addresses/create', {params: params}).then(response => {
+                    this.loading = false;
+                    this.form = response.data;
+                }).catch( error => {
+                    this.loading = false;
+                    this.reportEnsoException(error);
+                });
+            },
+            setDefault(address) {
+                this.loading = true;
+
+                axios.get('/addresses/setDefault/' + address.id).then(() => {
+                    this.loading = false;
+                    this.get();
+                }).catch((error) => {
+                    this.loading = false;
+                    this.reportEnsoException(error);
+                });
+            },
+            get() {
+                this.loading = true;
+
+                axios.get('/addresses', { params: { id: this.id, type: this.type } }).then(response => {
+                    this.addresses = response.data;
+                    this.loading = false;
+                }).catch( error  => {
+                    this.loading = false;
+                    this.reportEnsoException(error);
+                });
+            },
+
+            destroy(address, index) {
+
+                axios.delete('/addresses/' + address.id).then(response => {
                     this.$parent.loading = false;
-                    this.addresses.splice(payload.index,1);
+                    this.addresses.splice(index, 1);
                 }).catch(error => {
                     this.$parent.loading = false;
                     this.reportEnsoException(error);
                 });
             }
         },
-
-        mounted() {
-            this.get();
-        }
     }
 
 </script>
 
-<style>
+<style scoped>
 
     .box-body > div.contacts {
         overflow-y: auto;
