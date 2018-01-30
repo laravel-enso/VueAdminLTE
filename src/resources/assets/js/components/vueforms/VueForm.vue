@@ -23,6 +23,8 @@
               @submit.prevent="submit()">
             <div class="row">
                 <div v-for="element in data.attributes"
+                     :key="element.column"
+                     v-if="!element.config.hidden"
                      :class="data.wrapperClass">
                     <div class="form-group"
                          :class="{ 'has-error' : errors.has(element.column) }">
