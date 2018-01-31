@@ -24,7 +24,7 @@
                     <address-card :address="address"
                         @set-default="setDefault(address)"
                         @edit="edit(address)"
-                        @destroy="destroy(address, index)"
+                        @delete="destroy(address, index)"
                         :index="index">
 
                             <template slot="address-card-template" :address="address">
