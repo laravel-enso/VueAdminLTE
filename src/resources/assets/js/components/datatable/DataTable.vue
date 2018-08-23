@@ -542,7 +542,10 @@
         },
 
         beforeDestroy() {
-            this.dtHandle.destroy();
+            if(this.dtHandle) {
+                this.dtHandle.destroy();
+            }
+            
         }
     };
 
