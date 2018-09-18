@@ -114,6 +114,7 @@
             highlight(item, value) {
                 value
                     .replace(/[^\w\s]/, "\\$&")
+                    .replace(/\(|\)/g, "")
                     .split(' ')
                     .filter(word => {
                         return word.length;
